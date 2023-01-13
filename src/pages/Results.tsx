@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import VideoBoxBigH from "../components/VideoBoxBigH";
@@ -30,7 +28,7 @@ export default function ResultsPage() {
                     </div>
                     <span className="block w-full h-[1px] bg-slate-400"></span>
                 </div>
-				{videos.filter(video => video.id.kind === "youtube#video").map((video, index) => {
+				{videos.filter((video: any) => video.id.kind === "youtube#video").map((video: any, index) => {
 					return (
 						<VideoBoxBigH
 							key={index}

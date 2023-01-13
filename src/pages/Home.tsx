@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { useEffect, useState } from "react";
 import VideoBox from "../components/VideoBox";
 import LayoutDefault from "../layouts/Default";
@@ -21,7 +19,7 @@ function HomePage() {
 	return (
 		<LayoutDefault>
 			<div className="flex flex-wrap justify-center gap-x-4 gap-y-6">
-				{videos.map((video, index) => {
+				{videos.map((video: any, index) => {
 					return (
 						<VideoBox
 							key={index}
@@ -29,6 +27,7 @@ function HomePage() {
 							channelTitle={video.snippet.channelTitle}
 							thumbnailUrl={video.snippet.thumbnails.medium.url}
                             videoId={video.id.videoId}
+                            channelId={video.snippet.channelId}
 						/>
 					);
 				})}

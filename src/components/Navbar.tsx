@@ -1,7 +1,5 @@
-import Button from "./Button";
 import Search from "./Search";
 import {Icon} from '@iconify/react'
-import { Link } from "react-router-dom";
 
 interface Props {
     onMenuClick: () => void;

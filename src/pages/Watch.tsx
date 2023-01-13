@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
@@ -14,43 +13,45 @@ import {
 } from "../services/rapidapi";
 
 export default function WatchPage() {
-    const videoId = useSearchParams()[0].get("v");
-    
-    const [videoDetailes, setVideoDetailes] = useState([]);
+	const videoId = useSearchParams()[0].get("v");
+
+	const [videoDetailes, setVideoDetailes] = useState([]);
 	const [captionVideos, setCaptionVideos] = useState([]);
 	const [showDescription, setShowDescription] = useState(false);
 	const [comments, setComments] = useState([]);
 	const [commentsDisabled, setCommentsDisabled] = useState(false);
 	const [playing, setPlaying] = useState(true);
-    
+
 	useEffect(() => {
-		getVideo(videoId!.toString())
-			.then((res) => {
-				setVideoDetailes(res.data.items);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		if (videoId) {
+			getVideo(videoId)
+				.then((res) => {
+					setVideoDetailes(res.data.items);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 
-		getSuggestedVideos(videoId)
-			.then((videos) => {
-				setCaptionVideos(videos.data.items);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			getSuggestedVideos(videoId)
+				.then((videos) => {
+					setCaptionVideos(videos.data.items);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 
-		getVideoComments(videoId)
-			.then((comments) => {
-				if (comments.data.error) {
-					setCommentsDisabled(true);
-				} else {
-					setComments(comments.data.items);
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			getVideoComments(videoId)
+				.then((comments) => {
+					if (comments.data.error) {
+						setCommentsDisabled(true);
+					} else {
+						setComments(comments.data.items);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}, []);
 
 	return (
@@ -70,7 +71,7 @@ export default function WatchPage() {
 							}}
 						/>
 					</div>
-					{videoDetailes.map((video, index) => {
+					{videoDetailes.map((video: any, index) => {
 						return (
 							<div key={index}>
 								{/* Video details */}
@@ -115,7 +116,7 @@ export default function WatchPage() {
 								</h2>
 								{!commentsDisabled && (
 									<div className="flex flex-col gap-y-4">
-										{comments.map((comment, index) => {
+										{comments.map((comment: any, index) => {
 											return (
 												<CommentBox
 													key={index}
@@ -151,7 +152,7 @@ export default function WatchPage() {
 					})}
 				</div>
 				<div className="flex flex-col gap-y-4">
-					{captionVideos.map((video, index) => {
+					{captionVideos.map((video: any, index) => {
 						return (
 							<VideoBox
 								key={index}

@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -9,27 +7,29 @@ import { getChannelDetails, getChannelVideos } from "../services/rapidapi";
 
 export default function ChannelPage() {
 	const params = useParams();
-	const [details, setDetails] = useState({});
+	const [details, setDetails] = useState<any>({});
 	const [videos, setVideos] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
-		getChannelDetails(params.id.toString())
-			.then((res) => {
-				setDetails(res.data.items[0]);
-				setLoaded(true);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		if (params.id) {
+			getChannelDetails(params.id.toString())
+				.then((res) => {
+					setDetails(res.data.items[0]);
+					setLoaded(true);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 
-		getChannelVideos(params.id.toString())
-			.then((res) => {
-				setVideos(res.data.items);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			getChannelVideos(params.id.toString())
+				.then((res) => {
+					setVideos(res.data.items);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}, []);
 
 	return (
@@ -57,9 +57,9 @@ export default function ChannelPage() {
 							<span>{details.snippet.customUrl}</span>
 						</div>
 					</div>
-                    <h2>Channel' videos</h2>
+					<h2>Channel' videos</h2>
 					<div className="flex flex-wrap justify-center gap-4 mt-4">
-						{videos.map((video, index) => {
+						{videos.map((video: any, index) => {
 							return (
 								<VideoBox
 									key={index}

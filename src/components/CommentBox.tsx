@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { ImgHTMLAttributes, ReactEventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
 	authorImg: string;
@@ -25,7 +25,7 @@ export default function CommentBox(props: Props) {
 			<img
 				className="min-w-[40px] w-10 h-10 rounded-full mr-4 object-cover border"
 				src={brokenImage ? "https://img.icons8.com/ios-glyphs/512/user.png" : props.authorImg}
-				alt="author profile image"
+				alt={`${props.authorName} comment`}
                 onError={() => setBrokenImage(true)}
 			/>
 			<div className="flex flex-col">
